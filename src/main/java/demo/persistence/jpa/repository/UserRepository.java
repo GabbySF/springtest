@@ -5,4 +5,5 @@ import demo.persistence.jpa.entity.User;
 
 public interface UserRepository extends CrudRepository<User,Long>{
 
+	User findByUid(String uid);
 }

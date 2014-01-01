@@ -5,7 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +46,41 @@ public class UserController {
 			list.add(it.next());
 		}
 		return list;
+	}
+	
+	@RequestMapping("/update")
+	public @ResponseBody User updateUser(@RequestParam(value="name", required=true) String name,@RequestParam(value="id", required=true) long id){
+		
+		
+		User u = userRepo.findOne(id);
+		u.setName(name);
+		
+		userRepo.save(u);
+		
+		return u;
+		
+	}
+	
+	@RequestMapping("/getbyuid")
+	public @ResponseBody User getByUid(@RequestParam(value="uid", required=true) String uid){
+		
+		
+		User u = userRepo.findByUid(uid);
+		
+		return u;
+		
+	}
+	
+	@Autowired
+	JpaTransactionManager lcem;
+	
+	@RequestMapping("/log")
+	public @ResponseBody Collection printLog(){
+		
+		EntityManager em=lcem.getEntityManagerFactory().createEntityManager();
+		
+		return em.createNativeQuery("select * from user").getResultList();
+		
 	}
 	
 }

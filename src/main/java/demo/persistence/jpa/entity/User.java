@@ -2,17 +2,21 @@ package demo.persistence.jpa.entity;
 
 import java.util.UUID;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name = "user")
 public class User {
 
 	@Id
-	@GeneratedValue
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
 	
 	private String uid;
 	
@@ -35,7 +39,7 @@ public class User {
 	}
 
 	public long getId() {
-		return id;
+		return userId;
 	}
 
 	public User() {
