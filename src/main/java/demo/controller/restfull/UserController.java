@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,7 +33,7 @@ public class UserController {
 	
 	private UUID uidGenerator;
 	
-	@RequestMapping("/adduser")
+	@RequestMapping(value="/adduser",method=RequestMethod.GET)
 	public @ResponseBody User addUser(@RequestParam(value="name", required=true) String name){
 		
 		User u =new User(uidGenerator.randomUUID().toString(),name);
