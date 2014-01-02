@@ -49,7 +49,7 @@ public class AppConfig {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactoryBean.setDataSource(dataSource());
+		//entityManagerFactoryBean.setDataSource(dataSource());
 		entityManagerFactoryBean.setPersistenceProviderClass(PersistenceProvider.class);
 		entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
@@ -69,7 +69,28 @@ public class AppConfig {
 
 	private Properties getProperties() {
 		Properties properties = new Properties();
+		
+		properties.put("javax.persistence.jdbc.driver",env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+		properties.put("javax.persistence.jdbc.url",env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+		properties.put("javax.persistence.jdbc.user",env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+		properties.put("javax.persistence.jdbc.password",env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+		
+		properties.put("eclipselink.connection-pool.default.initial","1");
+		properties.put("eclipselink.connection-pool.default.min","64");
+		properties.put("eclipselink.connection-pool.default.max","64");
+		
+		
+		//properties.put("eclipselink.connection-pool.node2.url",env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+		//properties.put("eclipselink.connection-pool.node2.user",env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+		//properties.put("eclipselink.connection-pool.node2.password",env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+		//properties.put("eclipselink.connection-pool.node2.initial","1");
+		//properties.put("eclipselink.connection-pool.node2.min","64");
+		//properties.put("eclipselink.connection-pool.node2.max","64");
+		//properties.put("eclipselink.partitioning","Replicate");
+		
 		properties.put("eclipselink.weaving","false");
+		
+		
 		return properties;
 	}
 

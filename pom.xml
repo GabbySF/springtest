@@ -51,6 +51,12 @@
             <artifactId>spring-orm</artifactId>
         </dependency>
         
+        <!-- dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+		</dependency -->
+	
 	</dependencies>
 
 	<properties>
@@ -66,8 +72,12 @@
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
+<repositories>
+	<repository>
+  		<id>Java.Net</id>
+  		<url>http://download.java.net/maven/2/</url>
+  	</repository>
+  	<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
 			<url>http://repo.springsource.org/snapshot</url>

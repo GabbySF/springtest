@@ -1,4 +1,4 @@
-package demo.controller;
+package demo.controller.restfull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mysql.jdbc.log.Log;
+
+import demo.logic.bean.LogicTest;
 import demo.persistence.jpa.entity.User;
 import demo.persistence.jpa.repository.UserRepository;
 
@@ -80,6 +84,16 @@ public class UserController {
 		EntityManager em=lcem.getEntityManagerFactory().createEntityManager();
 		
 		return em.createNativeQuery("select * from user").getResultList();
+		
+	}
+	
+	@Autowired
+	private LogicTest test;
+	
+	@RequestMapping("/test")
+	public @ResponseBody String execTest(){
+		
+		return test.testMethod();
 		
 	}
 	
